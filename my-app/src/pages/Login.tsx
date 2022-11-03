@@ -1,5 +1,8 @@
 import { Box, TextField, Button, Typography } from "@mui/material";
 import { useState } from "react";
+import { useMutation } from "react-query";
+import { toast } from "react-toastify";
+import { signin } from "../api/services/auth";
 import Layout from "./Layout";
 
 const Login = () => {
@@ -8,7 +11,24 @@ const Login = () => {
     password: "",
   });
 
-  const handleSubmit = () => {};
+  const { mutate, isLoading } = useMutation(signin, {
+    onSuccess: (res: any) => {
+      localStorage.setItem("token", res.data.access_token);
+      window.location.href = "/";
+    },
+    onError: (err: any) => {
+      if (err.response.data.statusCode === 422) {
+        toast.error("Invalid Credentials");
+      } else {
+        toast.error(err.response.data.message);
+      }
+    },
+  });
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    mutate(state);
+  };
 
   return (
     <>
