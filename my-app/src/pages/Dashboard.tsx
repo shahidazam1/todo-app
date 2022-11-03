@@ -1,18 +1,10 @@
 import { Box, Typography, Button, Avatar } from "@mui/material";
+import Layout from "./Layout";
 
 const Dashboard = () => {
   return (
     <>
-      <Box position="fixed" top={0} width="90vw">
-        <Box display="flex" justifyContent="space-between">
-          <Button variant="contained" color="success">
-            Create Toda
-          </Button>
-          <Box>
-            <Avatar />
-          </Box>
-        </Box>
-      </Box>
+      <Layout />
       <Box
         width="100vw"
         height="100vh"
